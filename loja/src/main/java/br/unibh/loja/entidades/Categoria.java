@@ -41,7 +41,7 @@ public class Categoria {
 		super();
 	}
 
-	Categoria(Long id, String descricao) {
+	public Categoria(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
