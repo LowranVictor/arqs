@@ -1,5 +1,6 @@
 package br.unibh.loja.negocio;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -47,7 +48,7 @@ public class TesteServicoCliente {
 	private ServicoCliente sc;
 	
 	@Test
-	public void inserirSemErroCliente() throws Exception {
+	public void teste01_inserirSemErroCliente() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -62,7 +63,7 @@ public class TesteServicoCliente {
 	}
 	
 	@Test
-	public void inserirComErroCliente() throws Exception {
+	public void teste02_inserirComErroCliente() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -79,22 +80,22 @@ public class TesteServicoCliente {
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
-	/*@Test
-	public void atualizarCliente() throws Exception {
+	@Test
+	public void teste03_atualizarCliente() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 		Cliente o = (Cliente) sc.findByName("Lowran").get(0);
-		o.setNome("Belo Horizonte modificado");
+		o.setNome("Lowran modificado");
 		sc.update(o);
 		Cliente aux = (Cliente) sc.findByName("Lowran modificado").get(0);
-		assertNotNull(aux);
+		assertEquals("Lowran modificado", aux.getNome());
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 	
 	@Test
-	public void excluirCliente() throws Exception {
+	public void teste04_excluirCliente() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -104,7 +105,7 @@ public class TesteServicoCliente {
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
-	*/
+	
 	private boolean checkString(Throwable e, String str){
 		
 		if (e.getMessage().contains(str)){

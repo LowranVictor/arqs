@@ -1,5 +1,6 @@
 package br.unibh.loja.negocio;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -46,7 +47,7 @@ public class TesteServicoCategoria {
 	private ServicoCategoria sc;
 	
 	@Test
-	public void inserirSemErroCategoria() throws Exception {
+	public void teste01_inserirSemErroCategoria() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -60,7 +61,7 @@ public class TesteServicoCategoria {
 	}
 	
 	@Test
-	public void inserirComErroCategoria() throws Exception {
+	public void teste02_inserirComErroCategoria() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -76,21 +77,22 @@ public class TesteServicoCategoria {
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
-	/*@Test
-	public void atualizarCategoria() throws Exception {
+	@Test
+	public void teste03_atualizarCategoria() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 		Categoria o = (Categoria) sc.findByName("Celular").get(0);
+		o.setDescricao("Celular modificado");
 		sc.update(o);
 		Categoria aux = (Categoria) sc.findByName("Celular modificado").get(0);
-		assertNotNull(aux);
+		assertEquals("Celular modificado", aux.getDescricao());
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 	
 	@Test
-	public void excluirCategoria() throws Exception {
+	public void teste04_excluirCategoria() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -100,7 +102,7 @@ public class TesteServicoCategoria {
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
-	*/
+	
 	private boolean checkString(Throwable e, String str){
 		
 		if (e.getMessage().contains(str)){

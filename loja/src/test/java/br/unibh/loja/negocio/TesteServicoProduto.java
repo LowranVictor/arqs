@@ -1,5 +1,6 @@
 package br.unibh.loja.negocio;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -53,7 +54,7 @@ public class TesteServicoProduto {
 	private ServicoCategoria sc;
 	
 	@Test
-	public void inserirSemErroCategoria_1() throws Exception {
+	public void teste01_inserirSemErroCategoria_1() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -67,7 +68,7 @@ public class TesteServicoProduto {
 	}
 	
 	@Test
-	public void inserirSemErroProduto() throws Exception {
+	public void teste02_inserirSemErroProduto() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -82,7 +83,7 @@ public class TesteServicoProduto {
 	}
 	
 	@Test
-	public void inserirComErroProduto() throws Exception {
+	public void teste03_inserirComErroProduto() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());		
@@ -99,32 +100,45 @@ public class TesteServicoProduto {
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
-	/*@Test
-	public void atualizarProduto() throws Exception {
+	@Test
+	public void teste04_atualizarProduto() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
-		Produto o = (Produto) sp.findByName("iPhone 7").get(0);
-		o.setNome("iPhone 7 modificado");
+		Produto o = (Produto) sp.findByName("iPhone Sete").get(0);
+		o.setNome("iPhone Sete modificado");
 		sp.update(o);
-		Produto aux = (Produto) sp.findByName("Lowran modificado").get(0);
-		assertNotNull(aux);
+		Produto aux = (Produto) sp.findByName("iPhone Sete modificado").get(0);
+		assertEquals("iPhone Sete modificado", aux.getNome());
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 	
 	@Test
-	public void excluirCliente() throws Exception {
+	public void teste05_excluirCliente() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
-		Produto o = (Produto) sp.findByName("iPhone 7").get(0);
+		Produto o = (Produto) sp.findByName("iPhone Sete").get(0);
 		sp.delete(o);
-		assertEquals(0, sp.findByName("Lowran modificado").size());
+		assertEquals(0, sp.findByName("iPhone Sete modificado").size());
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
-	*/
+	
+	@Test
+	public void teste06_excluirCategoria_1() throws Exception {
+		
+		log.info("============> Iniciando o teste " +
+		Thread.currentThread().getStackTrace()[1].getMethodName());
+		Categoria o = (Categoria) sc.findByName("Telefone").get(0);
+		sc.delete(o);
+		assertEquals(0, sc.findByName("Telefone").size());
+		log.info("============> Finalizando o teste " +
+		Thread.currentThread().getStackTrace()[1].getMethodName());
+	}
+	
+	
 	private boolean checkString(Throwable e, String str){
 		
 		if (e.getMessage().contains(str)){
