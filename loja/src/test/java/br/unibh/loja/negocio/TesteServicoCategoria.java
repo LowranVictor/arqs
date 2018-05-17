@@ -1,12 +1,10 @@
 package br.unibh.loja.negocio;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -20,8 +18,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import br.unibh.loja.entidades.Cliente;
 import br.unibh.loja.entidades.Categoria;
+import br.unibh.loja.entidades.Cliente;
 import br.unibh.loja.entidades.Produto;
 import br.unibh.loja.util.Resources;
 
@@ -72,13 +70,13 @@ public class TesteServicoCategoria {
 				sc.insert(p1);
 		} 
 		catch (Exception e){
-				assertTrue(checkString(e, "Caracteres permitidos: letras, espaços, ponto e aspas simples"));
+				assertTrue(checkString(e, "Caracteres permitidos: letras, espaços, barra, traços ,ponto e aspas simples"));
 		}
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
-	@Test
+	/*@Test
 	public void atualizarCategoria() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
@@ -92,7 +90,7 @@ public class TesteServicoCategoria {
 	}
 	
 	@Test
-	public void excluirCliente() throws Exception {
+	public void excluirCategoria() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -102,7 +100,7 @@ public class TesteServicoCategoria {
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
-	
+	*/
 	private boolean checkString(Throwable e, String str){
 		
 		if (e.getMessage().contains(str)){

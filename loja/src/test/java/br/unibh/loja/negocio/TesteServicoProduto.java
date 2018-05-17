@@ -1,12 +1,11 @@
 package br.unibh.loja.negocio;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -20,8 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import br.unibh.loja.entidades.Cliente;
 import br.unibh.loja.entidades.Categoria;
+import br.unibh.loja.entidades.Cliente;
 import br.unibh.loja.entidades.Produto;
 import br.unibh.loja.util.Resources;
 
@@ -30,14 +29,14 @@ import br.unibh.loja.util.Resources;
 
 public class TesteServicoProduto {
 	
-	Categoria c = new Categoria(1L,"Teste");
+	//Categoria c = new Categoria();
 	
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		
 		// Cria o pacote que vai ser instalado no Wildfly para realizacao dos testes
 		return ShrinkWrap.create(WebArchive.class, "testeseguro.war")
-		.addClasses(Cliente.class, Categoria.class, Produto.class, 	Resources.class, DAO.class, ServicoProduto.class)
+		.addClasses(Cliente.class, Categoria.class, Produto.class, 	Resources.class, DAO.class, ServicoProduto.class,ServicoCategoria.class)
 		.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
 		.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 		
@@ -46,21 +45,37 @@ public class TesteServicoProduto {
 	// Realiza as injecoes com CDI
 	@Inject
 	private Logger log;
+	
 	@Inject
 	private ServicoProduto sp;
 	
+	@Inject
+	private ServicoCategoria sc;
 	
+	@Test
+	public void inserirSemErroCategoria_1() throws Exception {
+		
+		log.info("============> Iniciando o teste " +
+		Thread.currentThread().getStackTrace()[1].getMethodName());
+		
+		Categoria c1 = new Categoria(1L,"Telefone");
+		sc.insert(c1);
+		Categoria aux = (Categoria) sc.findByName("Telefone").get(0);
+		assertNotNull(aux);
+		log.info("============> Finalizando o teste " +
+		Thread.currentThread().getStackTrace()[1].getMethodName());
+	}
 	
 	@Test
 	public void inserirSemErroProduto() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
-		
+		Categoria c = (Categoria) sc.findByName("Telefone").get(0);
 		BigDecimal a = new BigDecimal("3589.00");
-		Produto p1 = new Produto(1L,"iPhone 7","Red",c, a ,"Apple");
+		Produto p1 = new Produto(1L,"iPhone Sete","Red",c, a ,"Apple");
 		sp.insert(p1);
-		Produto aux = (Produto) sp.findByName("iPhone 7").get(0);
+		Produto aux = (Produto) sp.findByName("iPhone Sete").get(0);
 		assertNotNull(aux);
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -70,11 +85,12 @@ public class TesteServicoProduto {
 	public void inserirComErroProduto() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
-		Thread.currentThread().getStackTrace()[1].getMethodName());
+		Thread.currentThread().getStackTrace()[1].getMethodName());		
 		try {
 			BigDecimal a = new BigDecimal("3589.00");
-			Produto p1 = new Produto(1L,"iPhone 7@","Red",c, a ,"Apple");
-				sp.insert(p1);
+			Categoria c = (Categoria) sc.findByName("Telefone").get(0);
+			Produto p2 = new Produto(null,"iPhone 7","Red",c, a ,"Apple");
+				sp.insert(p2);
 		} 
 		catch (Exception e){
 				assertTrue(checkString(e, "Caracteres permitidos: letras, espaços, ponto e aspas simples"));
@@ -83,7 +99,7 @@ public class TesteServicoProduto {
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
-	@Test
+	/*@Test
 	public void atualizarProduto() throws Exception {
 		
 		log.info("============> Iniciando o teste " +
@@ -108,7 +124,7 @@ public class TesteServicoProduto {
 		log.info("============> Finalizando o teste " +
 		Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
-	
+	*/
 	private boolean checkString(Throwable e, String str){
 		
 		if (e.getMessage().contains(str)){
