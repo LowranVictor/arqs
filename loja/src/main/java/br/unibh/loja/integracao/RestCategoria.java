@@ -30,13 +30,15 @@ public class RestCategoria {
 	@Path("new")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void incluiCategoria(Categoria categoria) throws Exception {
+		System.out.println(categoria.getDescricao());
 		Produto aux = (Produto) sp.findByName(categoria.getDescricao()).get(0);
+		
 
 		if (aux.getNome() != categoria.getDescricao()) {
 			sc.insert(categoria);		
 		} 
 		else {
-			//Caso seja necessário implementar mais alguma coisa
+			System.out.println("A descrição da categoria não pode ser igual ao do produto.");
 		}
 	}
 
@@ -52,7 +54,9 @@ public class RestCategoria {
 	@DELETE
 	@Path("{id}")
 	public void delete(@PathParam("id") Long id) throws Exception {
-		sc.delete(sc.find(id));
+		Categoria o = sc.find(id);
+		//System.out.println(o);
+		sc.delete(o);
 	}
 
 	@GET
