@@ -55,6 +55,6 @@ public class ServicoProduto implements DAO<Produto, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Produto> findByCategoria(Long id) throws Exception {
 		log.info("Encontrando o " + id);
-		return em.createNamedQuery("Produto.findByCategoria").setParameter("id_categoria", "%" + id + "%").getResultList();
+		return em.createNamedQuery("Produto.findByCategoria").setParameter("id", id).getResultList();
 	}
 }

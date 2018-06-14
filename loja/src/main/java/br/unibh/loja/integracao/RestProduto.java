@@ -6,17 +6,16 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.unibh.loja.entidades.Produto;
-import br.unibh.loja.negocio.ServicoProduto;
-import br.unibh.loja.entidades.Categoria;
 import br.unibh.loja.negocio.ServicoCategoria;
+import br.unibh.loja.negocio.ServicoProduto;
 import io.swagger.annotations.Api;
 
 
@@ -69,8 +68,8 @@ public class RestProduto {
 	@Path("categoria/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Produto> retornaProdutoCategoria(@PathParam("id") Long id) throws Exception {
-		Categoria aux = (Categoria) sc.find(id);
-		return sp.findByCategoria(aux.getId());
+		//Categoria aux = (Categoria) sc.find(id);
+		return sp.findByCategoria(id);
 	}
 
 }
