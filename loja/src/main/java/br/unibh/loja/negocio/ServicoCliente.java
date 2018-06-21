@@ -42,7 +42,7 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 		
 		int ano1 =  Integer.parseInt(d1.format(date));
 		
-		int anoTotal = ano - ano1;
+		int anoTotal = ano1 - ano;
 		
 		if(anoTotal <= 1 )
 		{
