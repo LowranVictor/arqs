@@ -57,4 +57,10 @@ public class ServicoProduto implements DAO<Produto, Long> {
 		log.info("Encontrando o " + id);
 		return em.createNamedQuery("Produto.findByCategoria").setParameter("id", id).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Produto> findByCategoriaAndNome(Long id, String nome) throws Exception {
+		log.info("Encontrando o " + id);
+		return em.createNamedQuery("Produto.findByCategoriaAndNome").setParameter("id", id).setParameter("nome", nome).getResultList();
+	}
 }
