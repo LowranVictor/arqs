@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotBlank;
 		@UniqueConstraint(columnNames = { "login" }) })
 
 @NamedQueries({ @NamedQuery(name = "Cliente.findByName", query = "select c from Cliente c where c.nome like :nome"),
-		@NamedQuery(name = "Cliente.findByPerfil", query = "select c from Cliente c where c.perfil =:perfil") })
+		@NamedQuery(name = "Cliente.find", query = "select c from Cliente c where c.perfil like :perfil and c.nome like :nome") })
 
 public class Cliente implements Serializable {
 	
