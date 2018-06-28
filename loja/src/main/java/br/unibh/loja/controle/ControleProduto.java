@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import br.unibh.loja.entidades.Produto;
 import br.unibh.loja.negocio.ServicoProduto;
-import br.unibh.loja.controle.ControleUtil;
 
 @ManagedBean(name = "produtomb")
 @ViewScoped
@@ -24,8 +23,16 @@ public class ControleProduto extends ControleUtil {
 	private String nomeArg;
 	private Long idCategoria;
 	private List<Produto> lista;
-
+	private String descArg;
 	
+
+	public String getDescArg() {
+		return descArg;
+	}
+
+	public void setDescArg(String descArg) {
+		this.descArg = descArg;
+	}
 
 	public Produto getProduto() {
 		return produto;
@@ -59,6 +66,7 @@ public class ControleProduto extends ControleUtil {
 		this.lista = lista;
 	}
 
+		
 	@PostConstruct
 	public void inicializaLista() {
 		try {
@@ -86,7 +94,7 @@ public class ControleProduto extends ControleUtil {
 	public void pesquisar() {
 		produto = null;
 		try {
-			lista = ejb.findByCategoriaAndNome(idCategoria,"%"+nomeArg+"%");
+			lista = ejb.findByCategoriaAndNome("%"+descArg+"%","%"+nomeArg+"%");
 		} catch (Exception e) {
 			mostrarErro(e);
 		}

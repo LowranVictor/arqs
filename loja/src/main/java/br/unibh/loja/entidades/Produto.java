@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @NamedQueries({ @NamedQuery(name = "Produto.findByName", query = "select p from Produto p where p.nome like :nome"),
 		        @NamedQuery(name = "Produto.findByCategoria", query = "select p from Produto p where p.categoria.id =:id"),
-		        @NamedQuery(name = "Produto.findByCategoriaAndNome", query = "select p from Produto p where p.categoria.id =:id and p.nome like :nome")})
+		        @NamedQuery(name = "Produto.findByCategoriaAndNome", query = "select p from Produto p where p.categoria.descricao like :desc and p.nome like :nome")})
 
 public class Produto implements Serializable {
 	

@@ -13,23 +13,30 @@
 						style="font-size:18px;font-weight:bold" />
 					<p:messages autoUpdate="true" closable="true" />
 					<p:panelGrid columns="3" styleClass="ui-noborder">
-						<p:outputLabel value="Nome " />
+						<p:outputLabel value="Nome:" />
 						<p:inputText id="nome" value="#{produtomb.produto.nome}" size="50" />
 						<p:message for="nome" errorClass="invalid" />
 						<p:outputLabel value="Descrição:" />
-						<p:inputText id="descricao" value="#{produtomb.produto.descricao}" size="50" />
+						<p:inputText id="descricao" value="#{produtomb.produto.descricao}"
+							size="50" />
 						<p:message for="descricao" errorClass="invalid" />
 						<p:outputLabel value="Categoria " />
-						<h:selectOneMenu id="categoria" value="#{produtomb.produto.categoria}">
-							<f:selectItems value="#{produtomb.categorias}" />
+						<h:selectOneMenu id="categoria"
+							value="#{produtomb.produto.categoria}"
+							converter="ConversorCategoria">
+							<f:selectItem itemValue="#{null}" itemLabel="" />
+							<f:selectItems value="#{categoriamb.categorias}" var = "categoria"
+							itemValue="#{categoria}" itemLabel="#{categoria.descricao}"/>
 						</h:selectOneMenu>
 						<p:message for="categoria" errorClass="invalid" />
 						<p:outputLabel value="Preço:" />
-						<p:inputText id="preco" value="#{produtomb.produto.preco}" size="50" />
+						<p:inputText id="preco" value="#{produtomb.produto.preco}"
+							size="15" />
 						<p:message for="preco" errorClass="invalid" />
 						<p:outputLabel value="Fabricante:" />
-						<p:inputText id="fabricante" value="#{produtomb.produto.fabricante}" size="50" />
-						<p:message for="fabricante" errorClass="invalid" />	
+						<p:inputText id="fabricante"
+							value="#{produtomb.produto.fabricante}" size="50" />
+						<p:message for="fabricante" errorClass="invalid" />
 					</p:panelGrid>
 					<p:commandButton id="gravar" action="#{produtomb.gravar}"
 						value="Gravar" update="@all" />
@@ -46,7 +53,7 @@
 					<p:outputLabel value="Nome:" />
 					<p:inputText id="nomeArg" value="#{produtomb.nomeArg}" />
 					<p:outputLabel value="Categoria:" />
-					<p:inputText id="idCategoria" value="#{produtomb.idCategoria}" />
+					<p:inputText id="descArg" value="#{produtomb.descArg}" />
 					<p:commandButton id="pesquisar" action="#{produtomb.pesquisar}"
 						value="Pesquisar" update="@all" />
 					<p:commandButton id="novo" action="#{produtomb.novo}" value="Novo"
@@ -69,19 +76,21 @@
 					<p:column headerText="Nome" width="20%" sortBy="#{produto.nome}">
 						<h:outputText value="#{produto.nome}" />
 					</p:column>
-					<p:column headerText="Categoria" width="20%" sortBy="#{produto.categoria}">
-						<h:outputText value="#{produto.categoria}" />
+					<p:column headerText="Categoria" width="20%"
+						sortBy="#{produto.categoria}">
+						<h:outputText value="#{produto.categoria.descricao}" />
 					</p:column>
 					<p:column headerText="Comandos" width="15%">
 						<div align="center">
-							<p:commandLink id="editar" action="#{produtomb.editar(produto.id)}"
-								value="Editar" update="@all" />
+							<p:commandLink id="editar"
+								action="#{produtomb.editar(produto.id)}" value="Editar"
+								update="@all" />
 							<h:outputText value=" " />
 							<p:commandLink id="excluir"
-								action="#{produtomb.editar(produto.id)}" value="Excluir"
+								action="#{produtomb.excluir(produto.id)}" value="Excluir"
 								update="@all">
 								<p:confirm header="Confirmação"
-									message="Você confirma a exclusão da cidade #{produto.nome}?"
+									message="Você confirma a exclusão do produto #{produto.nome}?"
 									icon="ui-icon-alert" />
 							</p:commandLink>
 						</div>
